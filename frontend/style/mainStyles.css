@@ -1,0 +1,266 @@
+/*
+    Spring 2026 IS 241.210 - Team MO HealthVerify
+    Written by Davis Ly, with some tweaks from William Goodman
+
+    Very likely will be splitting this into several files for easier adjustment and maintenance.
+ */
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #e6e6e6;
+}
+
+/* Top Header */
+.top-header {
+    background-color: #3d5a80;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    max-width: 50%;
+    height: auto;
+    width: auto;
+}
+
+.top-links {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.top-link {
+    display: inline-block;
+    padding: 6px 10px;
+    background: #3d5a80;
+    color: #ffffff;
+    border: 1px solid #3d5a80;
+    border-radius: 2px;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.top-link:hover {
+    background: #4f86c6;
+}
+
+.top-links {
+    font-size: 13px;
+}
+
+.top-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem;
+    flex-wrap: nowrap;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+}
+
+.logo img {
+    max-width: 140px;
+    height: auto;
+    width: auto;
+    display: block;
+}
+
+.top-links {
+    display: flex;
+    gap: 0.75rem;
+    flex: 1 1 auto;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    overflow: hidden;
+}
+
+.top-links a {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: inline-block;
+}
+
+@media (max-width: 760px) {
+    .logo img {
+        max-width: 110px;
+    }
+
+    .top-links {
+        gap: 0.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Navigation Bar */
+.nav-bar {
+    background: linear-gradient(to right, #4f86c6, #5fa8d3);
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.nav-bar span {
+    margin: 0 25px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.nav-bar span:hover {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+/* Main Content */
+.container {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.form-box {
+    background: #f2f2f2;
+    width: 420px;
+    margin: 0 auto;
+    padding: 25px;
+    border: 1px solid #999;
+    text-align: left;
+}
+
+.form-box h2 {
+    margin-top: 0;
+}
+
+input, select {
+    width: 100%;
+    padding: 6px;
+    margin-top: 4px;
+    margin-bottom: 12px;
+    border: 1px solid #666;
+}
+
+.show-link {
+    font-size: 12px;
+    color: blue;
+    float: right;
+    cursor: pointer;
+}
+
+.checkbox {
+    margin-top: 10px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.checkbox-label input {
+    width: auto;
+}
+
+button {
+    width: 160px;
+    padding: 8px;
+    background-color: #1a33cc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    display: block;
+    margin: 20px auto 0;
+    cursor: pointer;
+}
+
+.form-box input,
+.form-box select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #666;
+    box-sizing: border-box; /* prevents overflow */
+    font-size: 14px;
+}
+
+.checkbox-label input {
+    width: auto;
+    margin: 0;
+}
+
+button:hover {
+    background-color: #1027a3;
+}
+
+input.error,
+select.error {
+    border: 2px solid #cc0000;
+    background-color: #ffe6e6;
+}
+
+/* Tooltip for password field */
+.password-tooltip {
+    display: none;
+    background: #fffbe6;
+    border: 1px solid #d6c58a;
+    color: #222;
+    padding: 8px 10px;
+    font-size: 13px;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    margin-top: -8px;
+    margin-bottom: 12px;
+}
+
+.password-tooltip.visible {
+    display: block;
+}
+
+button:disabled {
+    background-color: #999;
+    cursor: not-allowed;
+}
+
+.link-table {
+    margin: auto;
+
+    .link-cell {
+        max-width: 25%;
+        padding: 24px;
+
+        a {
+            text-decoration: none;
+            width: fit-content;
+
+            :link {
+                color: #eeeeee;
+            }
+
+            :hover {
+                text-decoration: underline;
+            }
+        }
+
+        img {
+            max-height: 180px;
+            max-width: 180px;
+            min-height: 180px;
+            min-width: 180px;
+        }
+    }
+}
