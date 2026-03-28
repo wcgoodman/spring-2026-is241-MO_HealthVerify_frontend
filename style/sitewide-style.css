@@ -236,6 +236,81 @@ button:disabled {
     cursor: not-allowed;
 }
 
+.magnifier-toggle {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    z-index: 2000;
+    width: auto;
+    min-width: 110px;
+    margin: 0;
+    padding: 10px 12px;
+    border: 1px solid #1a33cc;
+    border-radius: 999px;
+    background-color: #ffffff;
+    color: #1a33cc;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.magnifier-toggle:hover {
+    background-color: #eaf0ff;
+    transform: translateY(-1px);
+}
+
+.magnifier-toggle.active {
+    background-color: #1a33cc;
+    color: #ffffff;
+    border-color: #1a33cc;
+}
+
+.magnifier-toggle:focus-visible {
+    outline: 3px solid #ffbf47;
+    outline-offset: 2px;
+}
+
+.magnifier-lens {
+    position: fixed;
+    z-index: 2100;
+    border-radius: 12px;
+    border: 2px solid #1a33cc;
+    background: #ffffff;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    pointer-events: none;
+    display: none;
+    will-change: transform, left, top;
+}
+
+.magnifier-lens.visible {
+    display: block;
+}
+
+.magnifier-content {
+    width: max-content;
+    height: max-content;
+}
+
+.magnifier-text-preview {
+    min-width: 1px;
+}
+
+body.magnifier-mode {
+    cursor: zoom-in;
+}
+
+@media (max-width: 600px) {
+    .magnifier-toggle {
+        right: 12px;
+        bottom: 12px;
+        min-width: 100px;
+        font-size: 12px;
+    }
+}
+
 .link-table {
     margin: auto;
 
@@ -259,8 +334,6 @@ button:disabled {
         img {
             max-height: 180px;
             max-width: 180px;
-            min-height: 180px;
-            min-width: 180px;
         }
     }
 }
