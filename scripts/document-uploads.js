@@ -4,7 +4,7 @@
 */
 
 (function () {
-    const MAX_BYTES = 50 * 1024 * 1024;
+    const MAX_BYTES = 15 * 1024 * 1024;
     const ALLOWED_EXTENSIONS = [
         ".doc", ".docx",
         ".xls", ".xlsx", ".xlsm",
@@ -57,7 +57,7 @@
             '  </div>',
             "</div>",
             '<div class="upload-meta">',
-            '  <span class="upload-hint">One file per upload. Maximum size 50 MB.</span>',
+            '  <span class="upload-hint">One file per upload. Maximum size 15 MB.</span>',
             '  <button class="link-button remove-upload" type="button">Remove</button>',
             "</div>",
             '<div class="upload-status" aria-live="polite"></div>'
@@ -117,7 +117,7 @@
         }
 
         if (file.size > MAX_BYTES) {
-            setCardStatus(card, "File is too large. Maximum size is 50 MB.", "error");
+            setCardStatus(card, "File is too large. Maximum size is 15 MB.", "error");
             return null;
         }
 
