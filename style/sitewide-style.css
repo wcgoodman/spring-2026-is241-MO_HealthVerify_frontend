@@ -128,7 +128,7 @@ body {
 
 /* Main Content */
 .container {
-    padding: 40px 20px;
+    padding: 40px 40px;
     text-align: center;
 }
 
@@ -336,4 +336,143 @@ body.magnifier-mode {
             max-width: 180px;
         }
     }
+}
+
+.landing-actions {
+    margin: 18px auto 10px;
+}
+
+.action-link {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 4px;
+    background-color: #1a33cc;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.action-link:hover {
+    background-color: #1027a3;
+}
+
+.upload-wrapper {
+    max-width: 860px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.upload-guidance {
+    margin-bottom: 18px;
+}
+
+.page-message {
+    min-height: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #1a33cc;
+}
+
+.page-message.success {
+    color: #1f7a1f;
+}
+
+.page-message.error {
+    color: #b00020;
+}
+
+.page-message.pending {
+    color: #1a33cc;
+}
+
+.upload-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.upload-card {
+    background: #f7f7f7;
+    border: 1px solid #999;
+    border-radius: 6px;
+    padding: 16px;
+}
+
+.upload-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.upload-field {
+    flex: 1 1 260px;
+}
+
+.upload-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 6px;
+}
+
+.upload-hint {
+    font-size: 13px;
+    color: #444;
+}
+
+.upload-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.button-inline {
+    width: auto;
+    margin: 0;
+    padding: 8px 16px;
+}
+
+.button-inline.primary {
+    background-color: #1a33cc;
+}
+
+.link-button {
+    background: transparent;
+    border: none;
+    color: #1a33cc;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: underline;
+    font-size: 13px;
+}
+
+.link-button:hover {
+    color: #1027a3;
+}
+
+.upload-status {
+    margin-top: 10px;
+    font-size: 13px;
+    min-height: 18px;
+}
+
+.upload-status.ready {
+    color: #1a33cc;
+}
+
+.upload-status.pending {
+    color: #1a33cc;
+}
+
+.upload-status.success {
+    color: #1f7a1f;
+}
+
+.upload-status.error {
+    color: #b00020;
+    font-weight: 700;
 }
