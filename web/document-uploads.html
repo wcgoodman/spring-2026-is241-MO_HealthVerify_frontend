@@ -1,13 +1,12 @@
 <!--
     Spring 2026 IS 241.210 - Team MO HealthVerify
-    Written by Davis Ly
-    Placeholder landing page after successful login.
+    Document uploads (placeholder)
 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <title>MO HealthVerify - Applicant Landing</title>
+    <title>MO HealthVerify - Document Uploads</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <link href="../style/sitewide-style.css" rel="stylesheet"/>
 </head>
@@ -34,15 +33,28 @@
 </div>
 
 <div class="container">
-    <h2>Missouri Medicaid Applicant Landing Page (Placeholder)</h2>
-    <p>Login was successful. This is a temporary landing page.</p>
-    <div class="landing-actions">
-        <a class="action-link" href="document-uploads.html">Upload documents</a>
+    <div class="upload-wrapper">
+        <h2>Document uploads (placeholder)</h2>
+        <p>Use this page to submit required documents for your Medicaid application.</p>
+
+        <div class="upload-guidance">
+            <p><strong>Requirements:</strong> 15 MB maximum file size. Accepted file types include PDF, Word,
+                Excel, and common image formats.</p>
+            <a class="action-link" href="home.html">Return to landing page</a>
+        </div>
+
+        <div aria-live="polite" class="page-message" id="pageMessage"></div>
+
+        <div class="upload-list" id="uploadList"></div>
+
+        <div class="upload-actions">
+            <button class="button-inline" id="addUpload" type="button">Add another file</button>
+            <button class="button-inline primary" id="uploadAll" type="button">Upload all</button>
+        </div>
     </div>
-    <button id="logoutButton" type="button">Logout</button>
 </div>
 
-<script src="../scripts/home.js"></script>
+<script src="../scripts/document-uploads.js"></script>
 <script src="../scripts/magnifying-lens.js"></script>
 </body>
 </html>
