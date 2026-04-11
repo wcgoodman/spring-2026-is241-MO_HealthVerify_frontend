@@ -10,6 +10,7 @@ function togglePassword(fieldId) {
 }
 
 (function () {
+    let profileStore = window.moHealthVerifyProfileStore;
     let form = document.getElementById("loginForm");
     let username = document.getElementById("username");
     let password = document.getElementById("password");
@@ -70,6 +71,19 @@ function togglePassword(fieldId) {
         if (authMessage) authMessage.textContent = message;
     }
 
+    function persistLoginProfile(emailAddress) {
+        if (!profileStore) return;
+
+        let existingProfile = profileStore.read();
+        profileStore.merge({
+            firstName: existingProfile.firstName || "",
+            lastName: existingProfile.lastName || "",
+            email: emailAddress,
+            datetimeRegistered: existingProfile.datetimeRegistered || new Date().toISOString(),
+            lastLogin: new Date().toISOString()
+        });
+    }
+
     ["username", "password"].forEach(function (id) {
         let el = document.getElementById(id);
         if (!el) return;
@@ -124,6 +138,7 @@ function togglePassword(fieldId) {
 
         // Temporary dev override credential.
         if (payload.email === "dly5@my.stlcc.edu" && payload.password === "testing1") {
+            persistLoginProfile(payload.email);
             isSubmitting = false;
             signInButton.textContent = "Sign In";
             updateSubmitState();
@@ -159,6 +174,7 @@ function togglePassword(fieldId) {
                     return;
                 }
 
+                persistLoginProfile(payload.email);
                 window.location.href = "home.html";
             })
             .catch(function() {
