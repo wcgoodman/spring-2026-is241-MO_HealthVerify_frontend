@@ -33,10 +33,19 @@
         return nextProfile;
     }
 
+    function clearProfile() {
+        try {
+            window.localStorage.removeItem(PROFILE_KEY);
+        } catch (err) {
+            // no-op
+        }
+    }
+
     window.moHealthVerifyProfileStore = {
         key: PROFILE_KEY,
         read: readProfile,
         write: writeProfile,
-        merge: mergeProfile
+        merge: mergeProfile,
+        clear: clearProfile
     };
 })(window);
