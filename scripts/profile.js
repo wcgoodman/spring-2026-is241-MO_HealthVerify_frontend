@@ -13,7 +13,7 @@
     let lastLogin = document.getElementById("profileLastLogin");
     let clearProfileButton = document.getElementById("clearProfileButton");
     let pageMessage = document.getElementById("profileMessage");
-    let PROFILE_FETCH_URL = "http://localhost:8080/api/auth/profile/";
+    let PROFILE_FETCH_URL = "http://localhost:8080/api/auth/profile";
     let PROFILE_UPDATE_URL = "http://localhost:8080/api/auth/profile/update";
 
     if (!profileStore || !form) return;
@@ -79,6 +79,9 @@
 
     function buildProfileFromResponse(payload) {
         let source = payload && payload.profile ? payload.profile : payload;
+        if (payload && payload.user) {
+            source = payload.user;
+        }
         return normalizeProfile(source || {});
     }
 

@@ -136,22 +136,10 @@ function togglePassword(fieldId) {
 
 
 
-        // Temporary dev override credential.
-        if (payload.email === "dly5@my.stlcc.edu" && payload.password === "testing1") {
-            persistLoginProfile(payload.email);
-            isSubmitting = false;
-            signInButton.textContent = "Sign In";
-            updateSubmitState();
-            window.location.href = "home.html";
-            return;
-        }
-
-
-
-
         fetch("http://localhost:8080/api/auth/login", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
+            credentials: "include",
             body: JSON.stringify(payload)
         })
             .then(function (response) {
