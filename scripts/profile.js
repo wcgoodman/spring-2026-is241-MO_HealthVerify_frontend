@@ -9,6 +9,13 @@
     let firstName = document.getElementById("profileFirstName");
     let lastName = document.getElementById("profileLastName");
     let email = document.getElementById("profileEmail");
+    let isMissouriResident = document.getElementById("profileIsMissouriResident");
+    let dateOfBirth = document.getElementById("profileDateOfBirth");
+    let address1 = document.getElementById("profileAddress1");
+    let address2 = document.getElementById("profileAddress2");
+    let addressCity = document.getElementById("profileAddressCity");
+    let addressState = document.getElementById("profileAddressState");
+    let addressZipCode = document.getElementById("profileAddressZipCode");
     let datetimeRegistered = document.getElementById("profileDatetimeRegistered");
     let lastLogin = document.getElementById("profileLastLogin");
     let clearProfileButton = document.getElementById("clearProfileButton");
@@ -35,11 +42,52 @@
         if (type) pageMessage.classList.add(type);
     }
 
+    function normalizeBooleanValue(value) {
+        if (typeof value === "boolean") return value;
+        if (typeof value !== "string") return null;
+
+        let normalized = value.trim().toLowerCase();
+        if (normalized === "true" || normalized === "yes" || normalized === "1") return true;
+        if (normalized === "false" || normalized === "no" || normalized === "0") return false;
+        return null;
+    }
+
+    function normalizeDateInputValue(value) {
+        if (!value || typeof value !== "string") return "";
+
+        let trimmed = value.trim();
+        if (!trimmed) return "";
+        if (/^\d{4}-\d{2}-\d{2}$/.test(trimmed)) return trimmed;
+
+        let parsed = new Date(trimmed);
+        if (Number.isNaN(parsed.getTime())) return "";
+        return parsed.toISOString().slice(0, 10);
+    }
+
+    function coalesceString(primary, fallback) {
+        if (typeof primary === "string" && primary.trim() !== "") return primary;
+        if (typeof fallback === "string" && fallback.trim() !== "") return fallback;
+        return "";
+    }
+
+    function coalesceBoolean(primary, fallback) {
+        if (typeof primary === "boolean") return primary;
+        if (typeof fallback === "boolean") return fallback;
+        return null;
+    }
+
     function normalizeProfile(profile) {
         return {
             firstName: profile && profile.firstName ? profile.firstName : "",
             lastName: profile && profile.lastName ? profile.lastName : "",
             email: profile && profile.email ? profile.email : "",
+            isMissouriResident: normalizeBooleanValue(profile && profile.isMissouriResident),
+            dateOfBirth: normalizeDateInputValue(profile && profile.dateOfBirth),
+            address1: profile && profile.address1 ? profile.address1 : "",
+            address2: profile && profile.address2 ? profile.address2 : "",
+            addressCity: profile && profile.addressCity ? profile.addressCity : "",
+            addressState: profile && profile.addressState ? profile.addressState : "",
+            addressZipCode: profile && profile.addressZipCode ? profile.addressZipCode : "",
             datetimeRegistered: profile && profile.datetimeRegistered ? profile.datetimeRegistered : "",
             lastLogin: profile && profile.lastLogin ? profile.lastLogin : ""
         };
@@ -49,6 +97,13 @@
         firstName.value = profile.firstName || "";
         lastName.value = profile.lastName || "";
         email.value = profile.email || "";
+        isMissouriResident.value = profile.isMissouriResident === true ? "true" : profile.isMissouriResident === false ? "false" : "";
+        dateOfBirth.value = profile.dateOfBirth || "";
+        address1.value = profile.address1 || "";
+        address2.value = profile.address2 || "";
+        addressCity.value = profile.addressCity || "";
+        addressState.value = profile.addressState || "";
+        addressZipCode.value = profile.addressZipCode || "";
         datetimeRegistered.value = formatDate(profile.datetimeRegistered);
         lastLogin.value = formatDate(profile.lastLogin);
     }
@@ -62,7 +117,7 @@
             return;
         }
 
-        setMessage("Profile data is stored locally in this frontend until a profile API is available.", "pending");
+        setMessage("Profile data loaded from local storage. Connecting to backend now...", "pending");
     }
 
     function parseJsonSafely(response) {
@@ -106,11 +161,18 @@
                 let backendProfile = buildProfileFromResponse(result.data);
                 let storedProfile = profileStore.read();
                 let mergedProfile = profileStore.merge({
-                    firstName: backendProfile.firstName || storedProfile.firstName || "",
-                    lastName: backendProfile.lastName || storedProfile.lastName || "",
-                    email: backendProfile.email || storedProfile.email || "",
-                    datetimeRegistered: backendProfile.datetimeRegistered || storedProfile.datetimeRegistered || "",
-                    lastLogin: backendProfile.lastLogin || storedProfile.lastLogin || ""
+                    firstName: coalesceString(backendProfile.firstName, storedProfile.firstName),
+                    lastName: coalesceString(backendProfile.lastName, storedProfile.lastName),
+                    email: coalesceString(backendProfile.email, storedProfile.email),
+                    isMissouriResident: coalesceBoolean(backendProfile.isMissouriResident, storedProfile.isMissouriResident),
+                    dateOfBirth: coalesceString(backendProfile.dateOfBirth, storedProfile.dateOfBirth),
+                    address1: coalesceString(backendProfile.address1, storedProfile.address1),
+                    address2: coalesceString(backendProfile.address2, storedProfile.address2),
+                    addressCity: coalesceString(backendProfile.addressCity, storedProfile.addressCity),
+                    addressState: coalesceString(backendProfile.addressState, storedProfile.addressState),
+                    addressZipCode: coalesceString(backendProfile.addressZipCode, storedProfile.addressZipCode),
+                    datetimeRegistered: coalesceString(backendProfile.datetimeRegistered, storedProfile.datetimeRegistered),
+                    lastLogin: coalesceString(backendProfile.lastLogin, storedProfile.lastLogin)
                 });
 
                 applyProfileToForm(normalizeProfile(mergedProfile));
@@ -136,6 +198,13 @@
         let trimmedFirstName = firstName.value.trim();
         let trimmedLastName = lastName.value.trim();
         let trimmedEmail = email.value.trim().toLowerCase();
+        let selectedResidency = normalizeBooleanValue(isMissouriResident.value);
+        let normalizedDateOfBirth = normalizeDateInputValue(dateOfBirth.value);
+        let trimmedAddress1 = address1.value.trim();
+        let trimmedAddress2 = address2.value.trim();
+        let trimmedAddressCity = addressCity.value.trim();
+        let trimmedAddressState = addressState.value.trim().toUpperCase();
+        let trimmedAddressZipCode = addressZipCode.value.trim();
 
         if (!trimmedFirstName || !trimmedLastName || !trimmedEmail) {
             setMessage("First name, last name, and email are required.", "error");
@@ -145,7 +214,14 @@
         let payload = {
             firstName: trimmedFirstName,
             lastName: trimmedLastName,
-            email: trimmedEmail
+            email: trimmedEmail,
+            isMissouriResident: selectedResidency,
+            dateOfBirth: normalizedDateOfBirth,
+            address1: trimmedAddress1,
+            address2: trimmedAddress2,
+            addressCity: trimmedAddressCity,
+            addressState: trimmedAddressState,
+            addressZipCode: trimmedAddressZipCode
         };
 
         setMessage("Saving profile to backend...", "pending");
@@ -167,12 +243,20 @@
                 }
 
                 let savedProfile = buildProfileFromResponse(result.data);
+                let existingProfile = profileStore.read();
                 let mergedProfile = profileStore.merge({
-                    firstName: savedProfile.firstName || payload.firstName,
-                    lastName: savedProfile.lastName || payload.lastName,
-                    email: savedProfile.email || payload.email,
-                    datetimeRegistered: savedProfile.datetimeRegistered || profileStore.read().datetimeRegistered || "",
-                    lastLogin: savedProfile.lastLogin || profileStore.read().lastLogin || ""
+                    firstName: coalesceString(savedProfile.firstName, payload.firstName),
+                    lastName: coalesceString(savedProfile.lastName, payload.lastName),
+                    email: coalesceString(savedProfile.email, payload.email),
+                    isMissouriResident: coalesceBoolean(savedProfile.isMissouriResident, payload.isMissouriResident),
+                    dateOfBirth: coalesceString(savedProfile.dateOfBirth, payload.dateOfBirth),
+                    address1: coalesceString(savedProfile.address1, payload.address1),
+                    address2: coalesceString(savedProfile.address2, payload.address2),
+                    addressCity: coalesceString(savedProfile.addressCity, payload.addressCity),
+                    addressState: coalesceString(savedProfile.addressState, payload.addressState),
+                    addressZipCode: coalesceString(savedProfile.addressZipCode, payload.addressZipCode),
+                    datetimeRegistered: coalesceString(savedProfile.datetimeRegistered, existingProfile.datetimeRegistered),
+                    lastLogin: coalesceString(savedProfile.lastLogin, existingProfile.lastLogin)
                 });
 
                 applyProfileToForm(normalizeProfile(mergedProfile));
