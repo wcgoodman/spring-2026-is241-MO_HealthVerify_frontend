@@ -10,6 +10,7 @@ function togglePassword(fieldId) {
 
 // Validation and submit handling
 (function () {
+    let profileStore = window.moHealthVerifyProfileStore;
     let form = document.getElementById('signupForm');
     let firstName = document.getElementById('firstName');
     let lastName = document.getElementById('lastName');
@@ -173,6 +174,14 @@ function togglePassword(fieldId) {
             })
             .then(data => {
                 if (data && data.success) {
+                    if (profileStore) {
+                        profileStore.merge({
+                            firstName: firstName.value.trim(),
+                            lastName: lastName.value.trim(),
+                            email: email.value.trim().toLowerCase(),
+                            datetimeRegistered: new Date().toISOString()
+                        });
+                    }
                     alert('Account registration successful!');
                     window.location.href = 'login.html'; // Redirect to login page after successful registration
                 }

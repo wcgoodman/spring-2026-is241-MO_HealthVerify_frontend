@@ -340,6 +340,10 @@ body.magnifier-mode {
 
 .landing-actions {
     margin: 18px auto 10px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .action-link {
@@ -475,4 +479,50 @@ body.magnifier-mode {
 .upload-status.error {
     color: #b00020;
     font-weight: 700;
+}
+
+.profile-wrapper {
+    max-width: 860px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.profile-form-box {
+    width: auto;
+    max-width: 860px;
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.profile-field {
+    min-width: 0;
+}
+
+.profile-field-full {
+    grid-column: 1 / -1;
+}
+
+.profile-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.profile-actions .action-link {
+    width: auto;
+}
+
+@media (max-width: 700px) {
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-field-full {
+        grid-column: auto;
+    }
 }
