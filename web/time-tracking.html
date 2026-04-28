@@ -1,13 +1,12 @@
 <!--
     Spring 2026 IS 241.210 - Team MO HealthVerify
-    Written by Davis Ly
-    Placeholder landing page after successful login.
+    Time record entry page
 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <title>MO HealthVerify - Applicant Landing</title>
+    <title>MO HealthVerify - Time Records</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <link href="../style/sitewide-style.css" rel="stylesheet"/>
 </head>
@@ -34,18 +33,29 @@
 </div>
 
 <div class="container">
-    <h2>Missouri Medicaid Applicant Landing Page (Placeholder)</h2>
-    <p>Login was successful. This is a temporary landing page.</p>
-    <div class="landing-actions">
-        <a class="action-link" href="profile.html">View profile</a>
-        <a class="action-link" href="document-uploads.html">Upload documents</a>
-        <a class="action-link" href="time-tracking.html">Enter time records</a>
-        <a class="action-link" href="time-tracking-history.html">View time record history</a>
+    <div class="upload-wrapper">
+        <h2>Time record entry</h2>
+        <p>Add one or more time records for Medicaid verification.</p>
+
+        <div class="upload-guidance">
+            <p><strong>Required fields:</strong> Start Time, End Time, and Time Record Type.</p>
+            <a class="action-link" href="time-tracking-history.html">View previously entered records</a>
+            <a class="action-link" href="home.html">Return to landing page</a>
+        </div>
+
+        <div aria-live="polite" class="page-message" id="timeTrackingMessage"></div>
+
+        <div class="upload-list" id="timeRecordList"></div>
+
+        <div class="upload-actions">
+            <button class="button-inline" id="addTimeRecord" type="button">Add another entry</button>
+            <button class="button-inline primary" id="submitTimeRecords" type="button">Submit</button>
+            <button class="button-inline" id="clearTimeRecords" type="button">Clear</button>
+        </div>
     </div>
-    <button id="logoutButton" type="button">Logout</button>
 </div>
 
-<script src="../scripts/home.js"></script>
+<script src="../scripts/time-tracking.js"></script>
 <script src="../scripts/magnifying-lens.js"></script>
 </body>
 </html>
