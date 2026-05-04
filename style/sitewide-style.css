@@ -517,6 +517,28 @@ body.magnifier-mode {
     width: auto;
 }
 
+.history-table-wrap {
+    overflow-x: auto;
+}
+
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+}
+
+.history-table th,
+.history-table td {
+    border: 1px solid #999;
+    padding: 10px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.history-table th {
+    background: #e9edf5;
+}
+
 @media (max-width: 700px) {
     .profile-grid {
         grid-template-columns: 1fr;

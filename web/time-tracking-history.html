@@ -1,13 +1,12 @@
 <!--
     Spring 2026 IS 241.210 - Team MO HealthVerify
-    Written by Davis Ly
-    Placeholder landing page after successful login.
+    Time tracking history page
 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <title>MO HealthVerify - Applicant Landing</title>
+    <title>MO HealthVerify - Time Record History</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <link href="../style/sitewide-style.css" rel="stylesheet"/>
 </head>
@@ -34,18 +33,35 @@
 </div>
 
 <div class="container">
-    <h2>Missouri Medicaid Applicant Landing Page (Placeholder)</h2>
-    <p>Login was successful. This is a temporary landing page.</p>
-    <div class="landing-actions">
-        <a class="action-link" href="profile.html">View profile</a>
-        <a class="action-link" href="document-uploads.html">Upload documents</a>
-        <a class="action-link" href="time-tracking.html">Enter time records</a>
-        <a class="action-link" href="time-tracking-history.html">View time record history</a>
+    <div class="upload-wrapper">
+        <h2>Time record history</h2>
+        <p>Previously entered time records, newest first.</p>
+
+        <div class="upload-guidance">
+            <a class="action-link" href="time-tracking.html">Enter time records</a>
+            <a class="action-link" href="home.html">Return to landing page</a>
+        </div>
+
+        <div aria-live="polite" class="page-message" id="historyMessage"></div>
+
+        <div class="upload-card">
+            <div class="history-table-wrap">
+                <table class="history-table">
+                    <thead>
+                    <tr>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Type ID</th>
+                    </tr>
+                    </thead>
+                    <tbody id="historyTableBody"></tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    <button id="logoutButton" type="button">Logout</button>
 </div>
 
-<script src="../scripts/home.js"></script>
+<script src="../scripts/time-tracking-history.js"></script>
 <script src="../scripts/magnifying-lens.js"></script>
 </body>
 </html>
